@@ -53,7 +53,7 @@ async handlePrompt(prompt: string, file?: Express.Multer.File, metadata?: string
     
 }
 async sendToN8n(prompt: string, sessionId:string , metadata?: string) {
-    const webhookUrl = process.env.WORKFLPOW_WEBHOOK_URL; // URL webhook n8n của bạn
+    const webhookUrl = process.env.WORKFLOW_WEBHOOK_URL; // URL webhook n8n của bạn
 
     try {
       const res = await firstValueFrom(
