@@ -4,6 +4,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { User } from './users/user.entity';
 import { ConfigModule } from '@nestjs/config';
+import { ChatModule } from './chat/chat.module';
 console.log('TRƯỚC khi Nest khởi chạy:', process.env.JWT_SECRET);
 
 @Module({
@@ -17,6 +18,7 @@ console.log('TRƯỚC khi Nest khởi chạy:', process.env.JWT_SECRET);
     }),
     AuthModule,
     UsersModule,
+    ChatModule,
   ],
 })
 export class AppModule {
