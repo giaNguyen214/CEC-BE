@@ -5,7 +5,7 @@ export class Conversation {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: 'session_id_mssv' })
+  @Column({ name: 'session_id' })
   session_id_mssv: string;
 
   @Column()
