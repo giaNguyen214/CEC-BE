@@ -3,7 +3,7 @@ import { ChatManageService } from './chat-manage.service';
 
 @Controller('chat-manage')
 export class ChatManageController {
-  constructor(private readonly chatService: ChatManageService) {}
+  constructor(private readonly chatManageService: ChatManageService) {}
   @Get('hello')
 getHello(): string {
   return 'ChatManageModule is working!';
@@ -11,7 +11,7 @@ getHello(): string {
   @Get('conversations/:mssv')
   async getAll(@Param('mssv') mssv: string) {
     try {
-      const data = await this.chatService.getAllConversationsByMssv(mssv);
+      const data = await this.chatManageService.getAllConversationsByMssv(mssv);
       return {
         success: true,
         data: data,
@@ -29,7 +29,7 @@ getHello(): string {
   @Delete('conversations/:session_id_mssv')
   async delete(@Param('session_id_mssv') session_id_mssv: string) {
     try {
-      const result = await this.chatService.deleteConversation(session_id_mssv);
+      const result = await this.chatManageService.deleteConversation(session_id_mssv);
       return {
         success: true,
         data: result,
@@ -48,7 +48,7 @@ getHello(): string {
   async patch(@Param('session_id_mssv')session_id_mssv: string,@Body() body: { title: string }) {
     try {
       const { title } = body;
-      const result = await this.chatService.updateConversationTitle(session_id_mssv, title);
+      const result = await this.chatManageService.updateConversationTitle(session_id_mssv, title);
       return {
         success: true,
         data: result,
@@ -59,6 +59,23 @@ getHello(): string {
         success: false,
         data: null,
         message: error.message || 'An error occurred while updating the conversation title.',
+      };
+    }
+  }
+  @Get('history/:session_id')
+  async getHistoryBySession(@Param('session_id') sessionId: string) {
+    try {
+      const messages = await this.chatManageService.findMessagesBySessionId(sessionId);
+      return {
+        success: true,
+        data: messages,
+        message: '',
+      };
+    } catch (error) {
+      return {
+        success: false,
+        data: null,
+        message: error.message || 'An error occurred while fetching chat history.',
       };
     }
   }

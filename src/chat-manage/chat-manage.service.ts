@@ -47,4 +47,10 @@ export class ChatManageService {
 
         return 'Title updated successfully';
     }
+    async findMessagesBySessionId(sessionId: string) {
+        return await this.historyRepo.find({
+        where: { session_id: sessionId },
+        order: { id: 'ASC' },
+        });
+  }
 }
