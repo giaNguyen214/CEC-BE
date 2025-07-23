@@ -7,8 +7,8 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('register')
-  async register(@Body() body: { email: string, password: string }) {
-    return this.authService.register(body.email, body.password);
+  async register(@Body() body: { email: string, password: string, mssv?: string }) {
+    return this.authService.register(body.email, body.password, body.mssv);
   }
 
   @Post('login')
@@ -17,7 +17,7 @@ export class AuthController {
     if (!user) {
       return { message: 'Invalid credentials' };
     }
-    return this.authService.login(user);
+    return { JWT: this.authService.login(user.email), mssv: user.mssv };
   }
 
   @UseGuards(JwtAuthGuard)
