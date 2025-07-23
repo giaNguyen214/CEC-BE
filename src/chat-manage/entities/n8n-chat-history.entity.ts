@@ -10,4 +10,7 @@ export class N8nChatHistory {
 
   @Column('json')
   message: any;
+
+  @Column({ name: 'mssv' })
+  mssv: string;
 }

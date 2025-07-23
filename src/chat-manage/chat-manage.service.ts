@@ -18,7 +18,7 @@ export class ChatManageService {
     async getAllConversationsByMssv(mssv: string): Promise<Conversation[]> {
         return this.conversationRepo.find({
         where: {
-            session_id_mssv: ILike(`%_${mssv}`),
+            mssv: mssv
         },
         order: {
             created_at: 'DESC',
@@ -27,19 +27,19 @@ export class ChatManageService {
     }
 
 
-    async deleteConversation( session_id_mssv: string): Promise<string> {
-        const convo = await this.conversationRepo.findOneBy({  session_id_mssv});
+    async deleteConversation( session_id:string,mssv: string): Promise<string> {
+        const convo = await this.conversationRepo.findOneBy({  session_id,mssv });
         if (!convo) return 'Conversation not found';
 
-        await this.conversationRepo.delete({  session_id_mssv });
-        await this.historyRepo.delete({  session_id:  session_id_mssv });
+        await this.conversationRepo.delete({  session_id,mssv });
+        await this.historyRepo.delete({  session_id:  session_id });
 
         return 'Deleted successfully';
     }
 
 
-    async updateConversationTitle( session_id_mssv: string, newTitle: string): Promise<string> {
-        const convo = await this.conversationRepo.findOneBy({ session_id_mssv: session_id_mssv });
+    async updateConversationTitle( session_id:string,mssv: string, newTitle: string): Promise<string> {
+        const convo = await this.conversationRepo.findOneBy({ session_id,mssv });
         if (!convo) return 'Conversation not found';
 
         convo.title = newTitle;

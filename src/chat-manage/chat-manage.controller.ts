@@ -29,7 +29,20 @@ getHello(): string {
   @Delete('conversations/:session_id_mssv')
   async delete(@Param('session_id_mssv') session_id_mssv: string) {
     try {
-      const result = await this.chatManageService.deleteConversation(session_id_mssv);
+      // Split sessionid_mssv into sessionId and mssv
+      const match = session_id_mssv.match(/^(.+)_(\d{7})$/);
+      if (!match) {
+        return {
+          success: false,
+          data: null,
+          message: 'Invalid session_id_mssv format. Expected format: sessionId_mssv',
+        };
+      }
+      
+      const session_id = match[1];  // e.g., "abc"
+      const mssv = match[2];       // e.g., "2212344"
+      
+      const result = await this.chatManageService.deleteConversation(session_id,mssv);
       return {
         success: true,
         data: result,
@@ -47,8 +60,20 @@ getHello(): string {
   @Patch('conversations/:session_id_mssv')
   async patch(@Param('session_id_mssv')session_id_mssv: string,@Body() body: { title: string }) {
     try {
+      // Split sessionid_mssv into sessionId and mssv
+      const match = session_id_mssv.match(/^(.+)_(\d{7})$/);
+      if (!match) {
+        return {
+          success: false,
+          data: null,
+          message: 'Invalid session_id_mssv format. Expected format: sessionId_mssv',
+        };
+      }
+      
+      const session_id = match[1];  // e.g., "abc"
+      const mssv = match[2];       // e.g., "2212344"
       const { title } = body;
-      const result = await this.chatManageService.updateConversationTitle(session_id_mssv, title);
+      const result = await this.chatManageService.updateConversationTitle(session_id,mssv, title);
       return {
         success: true,
         data: result,

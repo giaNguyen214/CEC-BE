@@ -6,7 +6,10 @@ export class Conversation {
   id: number;
 
   @Column({ name: 'session_id' })
-  session_id_mssv: string;
+  session_id: string;
+
+  @Column({ name: 'mssv' })
+  mssv: string;
 
   @Column()
   title: string;
