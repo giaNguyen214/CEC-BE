@@ -10,7 +10,9 @@ import { N8nChatHistory } from './chat-manage/entities/n8n-chat-history.entity';
 import { ConfigModule } from '@nestjs/config';
 import { ChatModule } from './chat/chat.module';
 import { ChatManageModule } from './chat-manage/chat-manage.module';
-console.log('TRƯỚC khi Nest khởi chạy:', process.env.JWT_SECRET);
+import { PrivateDatabase } from './db-manage/entities/private_database';
+import { DBManageModule } from './db-manage/db-manage.module';
+// console.log('TRƯỚC khi Nest khởi chạy:', process.env.JWT_SECRET);
 
 @Module({
   imports: [
@@ -19,12 +21,13 @@ console.log('TRƯỚC khi Nest khởi chạy:', process.env.JWT_SECRET);
       type: 'postgres',
       url: process.env.DATABASE_URL,      // hoặc host của superbase
       synchronize: true,      // chỉ nên true trong dev
-      entities: [User,Conversation, N8nChatHistory],
+      entities: [User,Conversation, N8nChatHistory, PrivateDatabase],
     }),
     AuthModule,
     UsersModule,
     ChatModule,
     ChatManageModule,
+    DBManageModule
   ],
   controllers: [AppController], 
   providers: [AppService],      
