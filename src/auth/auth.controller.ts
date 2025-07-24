@@ -17,7 +17,7 @@ export class AuthController {
     if (!user) {
       return { message: 'Invalid credentials' };
     }
-    return { JWT: (await this.authService.login(user)).access_token, mssv: user.mssv };
+    return { access_token: (await this.authService.login(user)).access_token, mssv: user.mssv };
   }
 
   @UseGuards(JwtAuthGuard)
