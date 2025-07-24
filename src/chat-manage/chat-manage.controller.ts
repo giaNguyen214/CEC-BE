@@ -1,5 +1,6 @@
 import { Controller, Get, Patch, Delete, Query, Body, Param } from '@nestjs/common';
 import { ChatManageService } from './chat-manage.service';
+import { session } from 'passport';
 
 @Controller('chat-manage')
 export class ChatManageController {
@@ -87,13 +88,21 @@ getHello(): string {
       };
     }
   }
-  @Get('history/:session_id')
-  async getHistoryBySession(@Param('session_id') sessionId: string) {
+  @Get('history/:session_id_mssv')
+  async getHistoryBySession(@Param('session_id_mssv') session_id_mssv: string) {
     try {
-      const messages = await this.chatManageService.findMessagesBySessionId(sessionId);
+      // Combine session_id and mssv back with underscore to get the full identifier
+      const fullSessionId = `${session_id_mssv}`;
+
+      // Split by underscore to get actual session ID and mssv
+      const parts = fullSessionId.split('_');
+      const actualSessionId = parts.slice(0, -1).join('_'); // Everything except last part
+      const actualMssv = parts[parts.length - 1]; // Last part is mssv
+      
+      const messages = await this.chatManageService.findMessagesBySessionIdAndMssv(actualSessionId, actualMssv);
       return {
         success: true,
-        data: messages,
+        data: { messages, mssv: actualMssv },
         message: '',
       };
     } catch (error) {

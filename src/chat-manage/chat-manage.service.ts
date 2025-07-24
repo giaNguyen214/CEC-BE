@@ -47,9 +47,9 @@ export class ChatManageService {
 
         return 'Title updated successfully';
     }
-    async findMessagesBySessionId(sessionId: string) {
+    async findMessagesBySessionIdAndMssv(sessionId: string,mssv: string): Promise<N8nChatHistory[]> {
         return await this.historyRepo.find({
-        where: { session_id: sessionId },
+        where: { session_id: sessionId, mssv: mssv   },
         order: { id: 'ASC' },
         });
   }
