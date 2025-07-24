@@ -10,8 +10,8 @@ export class DBManageService {
         private readonly privateDatabaseRepo: Repository<PrivateDatabase>,
     ) {}
 
-  async getAllPrivateDatabase() {
-    return await this.privateDatabaseRepo.find();
+  async getAllPrivateDatabase(mssv: string): Promise<PrivateDatabase[]> {
+    return await this.privateDatabaseRepo.find({ where: { mssv } });
   }
 
   async deletePrivateDatabase(hash: string): Promise<string> {

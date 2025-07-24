@@ -9,10 +9,10 @@ getHello(): string {
   return 'DBManageModule is working!';
 }
   
-  @Get('all/private_database')
-  async getAllPrivateDatabase() {
+  @Get('all/private_database/:mssv')
+  async getAllPrivateDatabase(@Param('mssv') mssv: string) {
     try {
-      const data = await this.dbManageService.getAllPrivateDatabase();
+      const data = await this.dbManageService.getAllPrivateDatabase(mssv);
       return {
         success: true,
         data: data,

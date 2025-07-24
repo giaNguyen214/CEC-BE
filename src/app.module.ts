@@ -20,7 +20,7 @@ import { DBManageModule } from './db-manage/db-manage.module';
     TypeOrmModule.forRoot({
       type: 'postgres',
       url: process.env.DATABASE_URL,      // hoặc host của superbase
-      synchronize: true,      // chỉ nên true trong dev
+      // synchronize: true,      // chỉ nên true trong dev
       entities: [User,Conversation, N8nChatHistory, PrivateDatabase],
     }),
     AuthModule,
