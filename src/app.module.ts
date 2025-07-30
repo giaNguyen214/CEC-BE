@@ -12,6 +12,7 @@ import { ChatModule } from './chat/chat.module';
 import { ChatManageModule } from './chat-manage/chat-manage.module';
 import { PrivateDatabase } from './db-manage/entities/private_database';
 import { DBManageModule } from './db-manage/db-manage.module';
+import { MinioUploadModule } from './minio-upload/minio-upload.module';
 // console.log('TRƯỚC khi Nest khởi chạy:', process.env.JWT_SECRET);
 
 @Module({
@@ -27,7 +28,8 @@ import { DBManageModule } from './db-manage/db-manage.module';
     UsersModule,
     ChatModule,
     ChatManageModule,
-    DBManageModule
+    DBManageModule,
+    MinioUploadModule,
   ],
   controllers: [AppController], 
   providers: [AppService],      
