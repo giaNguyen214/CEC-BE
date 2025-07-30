@@ -11,6 +11,10 @@ export class User {
   @Column()
   password: string;
 
+  @Column({ name: 'type' })
+  type: string;
+
   @Column({ name: 'mssv', unique: true })
   mssv: string;
 }
+

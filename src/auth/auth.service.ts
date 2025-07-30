@@ -26,12 +26,13 @@ export class AuthService {
     };
   }
 
-  async register(email: string, password: string, mssv?: string) {
+  async register(email: string, password: string, role: string, mssv?: string) {
     // If mssv is not provided or is not exactly 7 digits, generate a random one
     if (!mssv || mssv.length !== 7 || !/^\d{7}$/.test(mssv)) {
       mssv = Math.floor(1000000 + Math.random() * 9000000).toString();
     }
     const hash = await bcrypt.hash(password, 10);
-    return this.usersService.create(email, hash, mssv);
+    console.log("auth service: ", email, hash, role, mssv)
+    return this.usersService.create(email, hash, role, mssv);
   }
 }
