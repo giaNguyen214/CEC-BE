@@ -7,8 +7,15 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('register')
-  async register(@Body() body: { email: string, password: string, mssv?: string }) {
-    return this.authService.register(body.email, body.password, body.mssv);
+  async register(@Body() body: { email: string, password: string, role: string, mssv?: string }) {
+    let type = "guest"
+    if (body.role === "Sinh viên") {
+      type = "undergraduate"
+    } else if(body.role === "Cán bộ") {
+      type = "admin"
+    }
+
+    return this.authService.register(body.email, body.password, type, body.mssv);
   }
 
   @Post('login')
@@ -17,7 +24,8 @@ export class AuthController {
     if (!user) {
       return { message: 'Invalid credentials' };
     }
-    return { access_token: (await this.authService.login(user)).access_token, mssv: user.mssv };
+    // console.log(user)
+    return { access_token: (await this.authService.login(user)).access_token, mssv: user.mssv, type: user.type };
   }
 
   @UseGuards(JwtAuthGuard)

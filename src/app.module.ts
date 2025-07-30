@@ -12,6 +12,8 @@ import { ChatModule } from './chat/chat.module';
 import { ChatManageModule } from './chat-manage/chat-manage.module';
 import { PrivateDatabase } from './db-manage/entities/private_database';
 import { DBManageModule } from './db-manage/db-manage.module';
+import { QaModule } from './qa/qa.module';
+import { Qa } from './qa/entities/qa.entity';
 // console.log('TRƯỚC khi Nest khởi chạy:', process.env.JWT_SECRET);
 
 @Module({
@@ -21,13 +23,14 @@ import { DBManageModule } from './db-manage/db-manage.module';
       type: 'postgres',
       url: process.env.DATABASE_URL,      // hoặc host của superbase
       // synchronize: true,      // chỉ nên true trong dev
-      entities: [User,Conversation, N8nChatHistory, PrivateDatabase],
+      entities: [User,Conversation, N8nChatHistory, PrivateDatabase, Qa],
     }),
     AuthModule,
     UsersModule,
     ChatModule,
     ChatManageModule,
-    DBManageModule
+    DBManageModule,
+    QaModule
   ],
   controllers: [AppController], 
   providers: [AppService],      
