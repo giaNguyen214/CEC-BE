@@ -4,6 +4,9 @@ import { MinioUploadService } from './minio-upload.service';
 import { MinioService } from './minio.service';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 
+console.log("env : ", process.env.RABBITMQ_URL, process.env.UPLOAD_QUEUE_NAME);
+
+
 @Module({
   imports: [
     ClientsModule.register([
@@ -11,8 +14,9 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         name: 'UPLOAD_SERVICE',
         transport: Transport.RMQ,
         options: {
-          urls: [process.env.RABBITMQ_URL || 'amqp://localhost:5672'],
-          queue: process.env.UPLOAD_QUEUE_NAME || 'upload_queue',
+          urls: [process.env.RABBITMQ_URL ],
+          queue: process.env.UPLOAD_QUEUE_NAME,
+          
           queueOptions: {
             durable:  false,
           },

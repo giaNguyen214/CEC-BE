@@ -15,10 +15,10 @@ private readonly logger = new Logger(ChatService.name);
 private readonly TOKEN_LIMIT = 30;
 
 async handlePrompt(chatInput: string, selectedFile: string, sessionId: string, mssv?: string) {
-    console.log('Received chat input:', chatInput);
-    console.log('Received selected file:', selectedFile);
-    console.log('Received session ID:', sessionId);
-    console.log('Received MSSV:', mssv);
+    // console.log('Received chat input:', chatInput);
+    // console.log('Received selected file:', selectedFile);
+    // console.log('Received session ID:', sessionId);
+    // console.log('Received MSSV:', mssv);
     const tokenCount = countTokens(chatInput);
     this.logger.log(`Token count: ${tokenCount}`);
     const finalSessionId = sessionId || uuidv4();
@@ -62,7 +62,7 @@ async handlePrompt(chatInput: string, selectedFile: string, sessionId: string, m
 
 async sendToN8n(chatInput: string, selectedFile: string, sessionId: string, mssv?: string) {
   const webhookUrl = process.env.WORKFLOW_WEBHOOK_URL;
-  console.log('Gửi prompt đến n8n:', webhookUrl);
+  // console.log('Gửi prompt đến n8n:', webhookUrl);
 
   const formData = new FormData();
   formData.append('chatInput', chatInput);
@@ -71,11 +71,11 @@ async sendToN8n(chatInput: string, selectedFile: string, sessionId: string, mssv
   if (selectedFile) formData.append('selectedFile', selectedFile);
 
   try {
-    console.log('Chat input:', chatInput);
-    console.log('Session ID:', sessionId);
-    console.log('MSSV:', mssv);
-    console.log('Selected file:', selectedFile);
-    console.log('form data:', formData);
+    // console.log('Chat input:', chatInput);
+    // console.log('Session ID:', sessionId);
+    // console.log('MSSV:', mssv);
+    // console.log('Selected file:', selectedFile);
+    // console.log('form data:', formData);
     const res = await firstValueFrom(
       this.httpService.post(webhookUrl, formData, {
         headers: formData.getHeaders(),
