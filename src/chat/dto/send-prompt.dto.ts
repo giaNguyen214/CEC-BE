@@ -1,15 +1,20 @@
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
-export class SendPromptDto {
+export class ChatDto {
   @IsString()
   @IsNotEmpty()
-  prompt: string;
+  chatInput: string;
+
+  @IsString()
+  @IsNotEmpty()
+  sessionId: string;
 
   @IsOptional()
   @IsString()
-  metadata?: string; // optional: thông tin mô tả
+  selectedFile?: string;
 
   @IsOptional()
   @IsString()
-  sessionId?: string;
+  mssv?: string;
 }
+
