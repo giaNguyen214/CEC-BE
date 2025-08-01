@@ -8,6 +8,6 @@ export class MinioUploadController {
   @Post()
   @UseInterceptors(FileInterceptor('file'))
   async handleUpload(@UploadedFile() file: Express.Multer.File, @Body() body: any) {
-    return this.uploadService.handleFileUpload(file, body.mssv);
+    return this.uploadService.handleFileUpload(file, body.mssv, body.filename);
   }
 }

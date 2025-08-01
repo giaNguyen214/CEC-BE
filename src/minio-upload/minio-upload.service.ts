@@ -9,12 +9,12 @@ export class MinioUploadService {
     @Inject('UPLOAD_SERVICE') private readonly client: ClientProxy,
   ) {}
 
-  async handleFileUpload(file: Express.Multer.File, mssv: string) {
+  async handleFileUpload(file: Express.Multer.File, mssv: string, filename: string) {
     const result = await this.minioService.uploadFile(file);
-
+    console.log('File uploaded successfully:', result);
     // Gửi event đến RabbitMQ
     this.client.emit('upload_event', {
-      fileName: result.fileName,
+      fileName: filename,
       url: result.url,
       uploadedAt: new Date().toISOString(),
       mssv: mssv,
