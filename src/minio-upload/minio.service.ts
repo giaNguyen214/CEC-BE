@@ -19,9 +19,11 @@ export class MinioService {
   }
 
   async uploadFile(file: Express.Multer.File) {
+    const utf8FileName = Buffer.from(file.originalname, 'utf8').toString();
+
     const command = new PutObjectCommand({
       Bucket: this.bucketName,
-      Key: file.originalname,
+      Key: utf8FileName,
       Body: file.buffer,
       ContentType: file.mimetype,
     });
