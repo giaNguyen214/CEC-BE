@@ -30,7 +30,7 @@ export class MinioService {
 
     return {
       fileName: file.originalname,
-      url: `${process.env.MINIO_ENDPOINT || 'http://localhost:9000'}/${this.bucketName}/${file.originalname}`,
+      url: `${ 'http://minio:9000'}/${this.bucketName}/${file.originalname}`,
     };
   }
 }
