@@ -18,7 +18,7 @@ console.log("env : ", process.env.RABBITMQ_URL, process.env.UPLOAD_QUEUE_NAME);
           queue: process.env.UPLOAD_QUEUE_NAME,
           
           queueOptions: {
-            durable:  false,
+            durable:  true,
           },
         },
       },

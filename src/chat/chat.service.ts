@@ -12,26 +12,26 @@ export class ChatService {
 constructor(private readonly httpService: HttpService,private readonly geminiFilter: GeminiFilterService) {};
 
 private readonly logger = new Logger(ChatService.name);
-private readonly TOKEN_LIMIT = 30;
+private readonly TOKEN_LIMIT = 300;
 
 async handlePrompt(chatInput: string, selectedFile: string, sessionId: string, mssv?: string) {
     // console.log('Received chat input:', chatInput);
     // console.log('Received selected file:', selectedFile);
     // console.log('Received session ID:', sessionId);
     // console.log('Received MSSV:', mssv);
-    const tokenCount = countTokens(chatInput);
-    this.logger.log(`Token count: ${tokenCount}`);
-    const finalSessionId = sessionId || uuidv4();
-    if (tokenCount > this.TOKEN_LIMIT) {
-      throw new BadRequestException(`Prompt quá dài (${tokenCount} tokens), vượt giới hạn ${this.TOKEN_LIMIT}`);
-    }
+    // const tokenCount = countTokens(chatInput);
+    // this.logger.log(`Token count: ${tokenCount}`);
+    // const finalSessionId = sessionId || uuidv4();
+    // if (tokenCount > this.TOKEN_LIMIT) {
+    //   throw new BadRequestException(`Prompt quá dài (${tokenCount} tokens), vượt giới hạn ${this.TOKEN_LIMIT}`);
+    // }
 
-    const detected = detectSensitiveContext(chatInput);
-    if (detected.length > 0) {
-      throw new BadRequestException({ message:`Prompt chứa nội dung nhạy cảm`
-      , violations: detected
-      });
-    }
+    // const detected = detectSensitiveContext(chatInput);
+    // if (detected.length > 0) {
+    //   throw new BadRequestException({ message:`Prompt chứa nội dung nhạy cảm`
+    //   , violations: detected
+    //   });
+    // }
     // const aiFilterResult = await this.geminiFilter.filterContentWithAI(chatInput);
     // if (aiFilterResult.hasSensitiveContent) {
     //   throw new BadRequestException({
