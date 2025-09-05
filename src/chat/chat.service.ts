@@ -62,7 +62,7 @@ async handlePrompt(chatInput: string, selectedFile: string, sessionId: string, m
 
 async sendToN8n(chatInput: string, selectedFile: string, sessionId: string, mssv?: string) {
   const webhookUrl = process.env.WORKFLOW_WEBHOOK_URL;
-  // console.log('Gửi prompt đến n8n:', webhookUrl);
+  console.log('Gửi prompt đến n8n:', webhookUrl);
 
   const formData = new FormData();
   formData.append('chatInput', chatInput);
